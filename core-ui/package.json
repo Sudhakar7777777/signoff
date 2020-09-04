@@ -1,0 +1,108 @@
+{
+  "name": "react-template",
+  "version": "1.0.0",
+  "description": "generic react template for starting new projects with manually configured Webpack 4 + kool tooling",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm-run-all --parallel dev lint:watch",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --progress --colors --config webpack.config.js",
+    "build": "cross-env NODE_ENV=development webpack --config ./webpack.config.js",
+    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "clean": "rm -rf node_modules",
+    "lint": "eslint src --ignore-pattern 'src/dist/*'",
+    "lint:watch": "npm run lint --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sudhakar7777777/react-template.git"
+  },
+  "keywords": [
+    "react",
+    "react=dom",
+    "webpack",
+    "babel",
+    "typescript"
+  ],
+  "author": "Sudhakar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sudhakar7777777/react-template/issues"
+  },
+  "homepage": "https://github.com/Sudhakar7777777/react-template#readme",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-bootstrap": "^1.0.0-beta.16",
+    "react-dom": "^16.12.0",
+    "react-hot-loader": "^4.12.19",
+    "react-redux": "^7.1.3",
+    "react-router": "^5.1.2",
+    "react-router-bootstrap": "^0.25.0",
+    "react-router-dom": "^5.1.2",
+    "redux": "^4.0.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/preset-typescript": "^7.8.3",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.5",
+    "@types/webpack-env": "^1.15.1",
+    "@typescript-eslint/eslint-plugin": "^2.20.0",
+    "@typescript-eslint/parser": "^2.20.0",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "cross-env": "^7.0.0",
+    "css-loader": "^3.4.2",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.3",
+    "file-loader": "^5.0.2",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "husky": "^4.2.3",
+    "image-webpack-loader": "^6.0.0",
+    "lint-staged": "^10.0.7",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.14.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
+    "sass-loader": "^8.0.2",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^1.1.3",
+    "typescript": "^3.7.5",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0",
+    "webpackbar": "^4.0.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "plugin:prettier/recommended"
+    ]
+  },
+  "prettier": {
+    "printWidth": 90,
+    "bracketSpacing": false,
+    "trailingComma": "es5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.+(js|jsx)": [
+      "eslint src --fix",
+      "git add"
+    ],
+    "*.+(json|css|md)": [
+      "prettier src --write",
+      "git add"
+    ]
+  }
+}
