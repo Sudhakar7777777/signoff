@@ -1,3 +1,4 @@
 rootProject.name = 'signoff'
-include ':core-service'
-include ':file-service'
+include ':app-core'
+include ':service-core'
+include ':service-file'
