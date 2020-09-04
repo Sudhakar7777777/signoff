@@ -1,0 +1,3 @@
+rootProject.name = 'signoff'
+include ':core-service'
+include ':file-service'
