@@ -1,8 +1,5 @@
 package com.sbk.signoff.coreapp.jpa.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sbk.signoff.coreapp.api.model.UserType;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,12 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import java.util.Date;
-
-import static com.sbk.signoff.coreapp.common.Constant.MSG_SIZE_1_100;
-import static com.sbk.signoff.coreapp.common.Constant.MSG_SIZE_1_3;
-import static com.sbk.signoff.coreapp.common.Constant.MSG_SIZE_1_30;
 
 @Entity
 @Table(name = "SO_CORE_USER")
@@ -24,13 +16,13 @@ public class UserEntity extends BaseEntity {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "USER_ID", unique = true, nullable = false)
+	@Column(name = "ID", unique = true, nullable = false)
 	private Long id;
 
-	@Column(name = "USER_NM", nullable = false, length = 30)
+	@Column(name = "NAME", nullable = false, length = 30)
 	private String userName;
 
-	@Column(name = "PASSWD", nullable = false, length = 20)
+	@Column(name = "PASSWORD", nullable = false, length = 20)
 	private String password;
 
 	@Column(name = "TYPE", nullable = false, length = 10)
@@ -39,10 +31,10 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "ROLE", nullable = false, length = 10)
 	private String userRole;
 
-	@Column(name = "FIRST_NM", nullable = false, length = 30)
+	@Column(name = "FIRST_NAME", nullable = false, length = 30)
 	private String firstName;
 
-	@Column(name = "LAST_NM", nullable = false, length = 30)
+	@Column(name = "LAST_NAME", nullable = false, length = 30)
 	private String lastName;
 
 	@Column(name = "EMAIL", length = 50)
@@ -51,7 +43,7 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "PHONE", length = 15)
 	private String phone;
 
-	@Column(name = "ADDR", length = 100)
+	@Column(name = "ADDRESS", length = 100)
 	private String address;
 
 	@Column(name = "STATE", length = 30)

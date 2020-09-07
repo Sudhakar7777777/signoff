@@ -16,11 +16,12 @@ public class Constant {
 	public static final String MSG_SIZE_1_30 = "Attribute valid size between 1 to 30.";
 	public static final String MSG_SIZE_1_50 = "Attribute valid size between 1 to 50.";
 	public static final String MSG_SIZE_1_100 = "Attribute valid size between 1 to 100.";
+	public static final String MSG_SIZE_1_1000 = "Attribute valid size between 1 to 1000.";
 
 
 	/***** DB CONSTANTS *****/
 	public static final String SYSTEM_USER = "SYSTEM";
-
-
+	public static final String ENABLED_YES = "Y";
+	public static final String ENABLED_NO = "N";
 
 }
