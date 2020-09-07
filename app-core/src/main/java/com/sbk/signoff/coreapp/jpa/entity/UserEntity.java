@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
@@ -36,12 +38,25 @@ public class UserEntity extends BaseEntity {
 	}
 
 	public UserEntity(Long id, String userName, String firstName, String lastName, String email, String phone) {
+		super();
 		this.id = id;
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.phone = phone;
+	}
+
+	@Override
+	@PrePersist
+	protected void onCreate() {
+		super.onCreate();
+	}
+
+	@Override
+	@PreUpdate
+	protected void onUpdate() {
+		super.onUpdate();
 	}
 
 	public Long getId() {
@@ -101,6 +116,7 @@ public class UserEntity extends BaseEntity {
 				", lastName='" + lastName + '\'' +
 				", email='" + email + '\'' +
 				", phone='" + phone + '\'' +
+				", base=" + getUpdatedBy() + "|" + getUpdated() + "|" + getCreatedBy() + "|" + getCreated() +
 				'}';
 	}
 }

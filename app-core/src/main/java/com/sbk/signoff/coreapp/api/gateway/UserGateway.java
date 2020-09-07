@@ -12,7 +12,7 @@ public interface UserGateway {
 
 	User addUser(User user) throws Exception;
 
-	User updateUser(User user) throws Exception;
+	User updateUser(Long id, User user) throws Exception;
 
 	Boolean deleteUser(Long id) throws Exception;
 

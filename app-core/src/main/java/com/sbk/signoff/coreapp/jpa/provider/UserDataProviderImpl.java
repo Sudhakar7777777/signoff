@@ -47,7 +47,9 @@ public class UserDataProviderImpl implements UserDataProvider {
 	@Override
 	public User createUser(User user) throws Exception {
 		LOGGER.info("Creating new user : " + user);
-		UserEntity entity = userRepository.save(userDataMapper.mapModelToEntity(user));
+		UserEntity userEntity = userDataMapper.mapModelToEntity(user);
+		LOGGER.info("New data : " + userEntity);
+		UserEntity entity = userRepository.save(userEntity);
 		if(entity.getId() < 1) {
 			LOGGER.error("User record creation failed, User:" + entity);
 			throw new RuntimeException("User creation failed for user id:" + user.getId());
@@ -56,20 +58,25 @@ public class UserDataProviderImpl implements UserDataProvider {
 	}
 
 	@Override
-	public User updateUser(User user) throws Exception {
-		LOGGER.info("Updating existing user : " + user);
-		boolean foundId = userRepository.existsById(user.getId());
-		if(!foundId) {
-			LOGGER.error("User record does not exist, UserID:" + user.getId());
-			throw new RuntimeException("User update failed.  ID does not pre-exist:" + user.getId());
+	public User updateUser(Long id, User user) throws Exception {
+		LOGGER.info("Updating existing user : " + id);
+		Optional<UserEntity> entity = userRepository.findById(id);
+		if(entity.isEmpty()) {
+			LOGGER.error("User record does not exist, UserID:" + id);
+			throw new RuntimeException("User update failed.  ID does not pre-exist:" + id);
 		}
 
-		UserEntity entity = userRepository.save(userDataMapper.mapModelToEntity(user));
-		if(entity.getId() < 1) {
-			LOGGER.error("User update failed, User:" + entity);
+		LOGGER.info("Existing record:" + entity.get());
+		LOGGER.info("New incoming data:" + user);
+		UserEntity entity1 = userDataMapper.mapUpdateEntity(entity.get(), user);
+		LOGGER.info("Modified data:" + entity1);
+		UserEntity entity2 = userRepository.save(entity1);
+		LOGGER.info("Updated record:" + entity2);
+		if(entity2.getId() < 1) {
+			LOGGER.error("User update failed, User:" + entity2);
 			throw new RuntimeException("User update failed for user id:" + user.getId());
 		}
-		return userDataMapper.mapEntityToModel(entity);
+		return userDataMapper.mapEntityToModel(entity2);
 	}
 
 	@Override

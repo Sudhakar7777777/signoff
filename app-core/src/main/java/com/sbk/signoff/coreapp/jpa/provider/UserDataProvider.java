@@ -15,7 +15,7 @@ public interface UserDataProvider {
 	User createUser(User user) throws Exception;
 
 //	@Transactional
-	User updateUser(User user) throws Exception;
+	User updateUser(Long id, User user) throws Exception;
 
 //	@Transactional
 	Boolean deleteUser(Long id) throws Exception;

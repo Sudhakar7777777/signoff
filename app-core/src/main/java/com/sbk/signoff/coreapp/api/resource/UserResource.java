@@ -28,11 +28,10 @@ public interface UserResource {
 	List<User> readUsers() throws Exception;
 
 	@PostMapping("/")
-	@ResponseStatus(HttpStatus.CREATED)
-	User addUser(@RequestParam("user") @Valid @RequestBody User user) throws Exception;
+	User addUser(@Valid @RequestBody User user) throws Exception;
 
-	@PutMapping("/")
-	User updateUser(@Valid @RequestBody User user) throws Exception;
+	@PutMapping("/{id}")
+	User updateUser(@PathVariable Long id, @Valid @RequestBody User user) throws Exception;
 
 	@DeleteMapping("/{id}")
 	Boolean deleteUser(@PathVariable Long id) throws Exception;

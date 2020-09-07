@@ -56,7 +56,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.invalidateHttpSession(true);
 		httpSecurity
 				.csrf()
-				.ignoringAntMatchers("/h2-console/**");
+				.ignoringAntMatchers("/h2-console/**")
+				.ignoringAntMatchers("/users/**");
 		httpSecurity.headers()
 				.frameOptions()
 				.sameOrigin();

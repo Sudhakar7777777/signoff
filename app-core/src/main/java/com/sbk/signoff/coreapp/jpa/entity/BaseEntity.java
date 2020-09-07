@@ -30,6 +30,10 @@ public abstract class BaseEntity implements Serializable {
 	@Column(name = "CHG_BY")
 	private String updatedBy;
 
+	public BaseEntity() {
+		onCreate();
+	}
+
 	public Date getCreated() {
 		return created;
 	}

@@ -32,8 +32,8 @@ public class UserGatewayImpl implements UserGateway {
 	}
 
 	@Override
-	public User updateUser(User user) throws Exception {
-		return userService.updateUser(user);
+	public User updateUser(Long id, User user) throws Exception {
+		return userService.updateUser(id, user);
 	}
 
 	@Override

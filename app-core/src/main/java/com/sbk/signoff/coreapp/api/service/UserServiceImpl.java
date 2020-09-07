@@ -38,9 +38,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User updateUser(User user) throws Exception {
+	public User updateUser(Long id, User user) throws Exception {
 		LOGGER.info("UserServiceImpl: updateUser");
-		return userDataProvider.updateUser(user);
+		return userDataProvider.updateUser(id, user);
 	}
 
 	@Override
