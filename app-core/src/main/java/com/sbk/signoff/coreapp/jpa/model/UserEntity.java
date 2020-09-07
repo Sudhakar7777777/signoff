@@ -16,10 +16,13 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "USER_ID", unique = true, nullable = false)
 	private Long id;
 
-	@Column(name = "FIRST_NAME", nullable = false)
+	@Column(name = "USER_NM", nullable = false)
+	private String userName;
+
+	@Column(name = "FIRST_NM", nullable = false)
 	private String firstName;
 
-	@Column(name = "LAST_NAME", nullable = false)
+	@Column(name = "LAST_NM", nullable = false)
 	private String lastName;
 
 	@Column(name = "EMAIL")
@@ -32,8 +35,9 @@ public class UserEntity extends BaseEntity {
 		super();
 	}
 
-	public UserEntity(Long id, String firstName, String lastName, String email, String phone) {
+	public UserEntity(Long id, String userName, String firstName, String lastName, String email, String phone) {
 		this.id = id;
+		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -46,6 +50,14 @@ public class UserEntity extends BaseEntity {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getFirstName() {
@@ -84,6 +96,7 @@ public class UserEntity extends BaseEntity {
 	public String toString() {
 		return "UserEntity{" +
 				"id=" + id +
+				", userName='" + userName + '\'' +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
 				", email='" + email + '\'' +
