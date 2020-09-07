@@ -33,6 +33,9 @@ public interface UserResource {
 	@PutMapping("/{id}")
 	User updateUser(@PathVariable Long id, @Valid @RequestBody User user) throws Exception;
 
+	@PutMapping("/{id}/password/{password}")
+	User updatePassword(@PathVariable Long id, @PathVariable String password) throws Exception;
+
 	@DeleteMapping("/{id}")
 	Boolean deleteUser(@PathVariable Long id) throws Exception;
 

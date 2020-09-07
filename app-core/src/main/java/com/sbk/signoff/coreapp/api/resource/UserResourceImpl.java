@@ -6,9 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,6 +50,15 @@ public class UserResourceImpl implements UserResource {
 	public User updateUser(Long id, User user) throws Exception {
 		validateUser(user);
 		return userGateway.updateUser(id, user);
+	}
+
+	@Override
+	public User updatePassword(Long id, String password) throws Exception {
+		validateId(id);
+		if(StringUtils.isEmpty(password)) {
+			throw new Exception("Password is empty.  Retry again.");
+		}
+		return userGateway.updatePassword(id, password);
 	}
 
 	@Override

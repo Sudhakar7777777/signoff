@@ -37,6 +37,11 @@ public class UserGatewayImpl implements UserGateway {
 	}
 
 	@Override
+	public User updatePassword(Long id, String password) throws Exception {
+		return userService.updatePassword(id, password);
+	}
+
+	@Override
 	public Boolean deleteUser(Long id) throws Exception {
 		return userService.deleteUser(id);
 	}

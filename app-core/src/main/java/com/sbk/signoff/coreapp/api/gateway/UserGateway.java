@@ -14,6 +14,8 @@ public interface UserGateway {
 
 	User updateUser(Long id, User user) throws Exception;
 
+	User updatePassword(Long id, String password) throws Exception;
+
 	Boolean deleteUser(Long id) throws Exception;
 
 }

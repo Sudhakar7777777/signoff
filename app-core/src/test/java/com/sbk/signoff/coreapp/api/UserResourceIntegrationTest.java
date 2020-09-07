@@ -23,6 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -116,6 +117,27 @@ public class UserResourceIntegrationTest {
 	}
 
 	@Test
+	public void userServiceUpdatePasswordWithSuccess() throws IOException {
+		//Add a user
+		User user1 = buildUser();
+		String userJson = getJsonStrFromUser(user1);
+		HttpEntity<String> request = new HttpEntity<String>(userJson, headers);
+
+		ResponseEntity<User> response = restTemplate.postForEntity(baseURL, request, User.class);
+		logger.info("Result:" + response);
+		assertTrue(response.getStatusCode() == HttpStatus.OK);
+
+		//Get a user
+		String newPassword = "ZingZing";
+		ResponseEntity<User> response2 = restTemplate.exchange(baseURL + "/1" + "/password/" + newPassword,
+				HttpMethod.PUT,
+				new HttpEntity<Object>(user1, headers), User.class);
+		logger.info("Result2:" + response2);
+		assertTrue(response2.getStatusCode() == HttpStatus.OK);
+		assertTrue(response2.getBody().getPassword().equals(newPassword));
+	}
+
+	@Test
 	public void userServiceDeleteWithSuccess() throws IOException {
 		//Add a user
 		User user1 = buildUser();
@@ -141,9 +163,16 @@ public class UserResourceIntegrationTest {
 	private User buildUser() {
 		return new User(1L,
 				"primeUser",
+				"testPassword",
 				"Primary",
 				"User",
 				"prime@user.com",
-				"1-408-408-4088");
+				"1-408-408-4088",
+				"addr1",
+				"ca",
+				"USA",
+				"12345",
+				new Date()
+				);
 	}
 }

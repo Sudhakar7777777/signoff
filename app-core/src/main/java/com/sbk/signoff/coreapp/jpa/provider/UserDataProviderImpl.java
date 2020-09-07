@@ -45,7 +45,7 @@ public class UserDataProviderImpl implements UserDataProvider {
 	}
 
 	@Override
-	public User createUser(User user) throws Exception {
+	public User createNewUser(User user) throws Exception {
 		LOGGER.info("Creating new user : " + user);
 		UserEntity userEntity = userDataMapper.mapModelToEntity(user);
 		LOGGER.info("New data : " + userEntity);
@@ -58,7 +58,7 @@ public class UserDataProviderImpl implements UserDataProvider {
 	}
 
 	@Override
-	public User updateUser(Long id, User user) throws Exception {
+	public User updateExistingUser(Long id, User user) throws Exception {
 		LOGGER.info("Updating existing user : " + id);
 		Optional<UserEntity> entity = userRepository.findById(id);
 		if(entity.isEmpty()) {
@@ -77,6 +77,31 @@ public class UserDataProviderImpl implements UserDataProvider {
 			throw new RuntimeException("User update failed for user id:" + user.getId());
 		}
 		return userDataMapper.mapEntityToModel(entity2);
+	}
+
+	@Override
+	public User updatePassword(Long id, String password) throws Exception {
+		LOGGER.info("Updating existing user : " + id);
+		Optional<UserEntity> entity = userRepository.findById(id);
+		if(entity.isEmpty()) {
+			LOGGER.error("User record does not exist, UserID:" + id);
+			throw new RuntimeException("User update failed.  ID does not pre-exist:" + id);
+		}
+
+		UserEntity currentEntity = entity.get();
+		if(currentEntity.getPassword().equals(password)) {
+			LOGGER.error("User password same is old password, OldPass:" + currentEntity.getPassword() + "NewPass:" + password);
+			throw new RuntimeException("User password same is old password.");
+		}
+
+		currentEntity.setPassword(password);
+		UserEntity newEntity = userRepository.save(currentEntity);
+		LOGGER.info("Updated record:" + newEntity);
+		if(newEntity.getId() < 1) {
+			LOGGER.error("User update failed, User:" + newEntity);
+			throw new RuntimeException("User update failed for user id:" + id);
+		}
+		return userDataMapper.mapEntityToModel(newEntity);
 	}
 
 	@Override

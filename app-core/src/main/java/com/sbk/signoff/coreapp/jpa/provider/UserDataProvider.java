@@ -12,10 +12,12 @@ public interface UserDataProvider {
 	List<User> readUsers() throws Exception;
 
 //	@Transactional
-	User createUser(User user) throws Exception;
+	User createNewUser(User user) throws Exception;
 
 //	@Transactional
-	User updateUser(Long id, User user) throws Exception;
+	User updateExistingUser(Long id, User user) throws Exception;
+
+	User updatePassword(Long id, String password) throws Exception;
 
 //	@Transactional
 	Boolean deleteUser(Long id) throws Exception;

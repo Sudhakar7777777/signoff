@@ -34,13 +34,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User addUser(User user) throws Exception {
 		LOGGER.info("UserServiceImpl: addUser");
-		return userDataProvider.createUser(user);
+		return userDataProvider.createNewUser(user);
 	}
 
 	@Override
 	public User updateUser(Long id, User user) throws Exception {
 		LOGGER.info("UserServiceImpl: updateUser");
-		return userDataProvider.updateUser(id, user);
+		return userDataProvider.updateExistingUser(id, user);
+	}
+
+	@Override
+	public User updatePassword(Long id, String password) throws Exception {
+		LOGGER.info("UserServiceImpl: updateUser");
+		return userDataProvider.updatePassword(id, password);
 	}
 
 	@Override
