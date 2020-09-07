@@ -19,6 +19,8 @@ public class UserDataMapper {
 				user.getId(),
 				user.getUserName(),
 				user.getPassword(),
+				user.getUserType(),
+				user.getUserRole(),
 				user.getFirstName(),
 				user.getLastName(),
 				user.getEmail(),
@@ -50,6 +52,8 @@ public class UserDataMapper {
 				entity.getId(),
 				entity.getUserName(),
 				entity.getPassword(),
+				entity.getUserType(),
+				entity.getUserRole(),
 				entity.getFirstName(),
 				entity.getLastName(),
 				entity.getEmail(),
@@ -75,6 +79,8 @@ public class UserDataMapper {
 	public UserEntity mapUpdateEntity(UserEntity entity, User user) {
 		if (StringUtils.isNotEmpty(user.getUserName())) entity.setUserName(user.getUserName());
 		if (StringUtils.isNotEmpty(user.getPassword())) entity.setPassword(user.getPassword());
+		if (StringUtils.isNotEmpty(user.getUserType())) entity.setUserType(user.getUserType());
+		if (StringUtils.isNotEmpty(user.getUserRole())) entity.setUserRole(user.getUserRole());
 		if (StringUtils.isNotEmpty(user.getFirstName())) entity.setFirstName(user.getFirstName());
 		if (StringUtils.isNotEmpty(user.getLastName())) entity.setLastName(user.getLastName());
 		if (StringUtils.isNotEmpty(user.getEmail())) entity.setEmail(user.getEmail());

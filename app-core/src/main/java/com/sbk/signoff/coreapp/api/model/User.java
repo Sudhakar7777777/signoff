@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import static com.sbk.signoff.coreapp.common.Constant.MSG_EMPTY;
+import static com.sbk.signoff.coreapp.common.Constant.MSG_SIZE_1_10;
 import static com.sbk.signoff.coreapp.common.Constant.MSG_SIZE_1_100;
 import static com.sbk.signoff.coreapp.common.Constant.MSG_SIZE_1_15;
 import static com.sbk.signoff.coreapp.common.Constant.MSG_SIZE_1_20;
@@ -29,6 +30,14 @@ public class User {
 	@NotBlank(message = "password " + MSG_EMPTY)
 	@Size(min = 1, max = 20, message = MSG_SIZE_1_20)
 	private String password;
+
+	@NotBlank(message = "userType " + MSG_EMPTY)
+	@Size(min = 1, max = 10, message = MSG_SIZE_1_10)
+	private String userType;
+
+	@NotBlank(message = "userRole " + MSG_EMPTY)
+	@Size(min = 1, max = 10, message = MSG_SIZE_1_10)
+	private String userRole;
 
 	@NotBlank(message = "firstName " + MSG_EMPTY)
 	@Size(min = 1, max = 30, message = MSG_SIZE_1_30)
@@ -63,11 +72,14 @@ public class User {
 	public User() {
 	}
 
-	public User(Long id, String userName, String password, String firstName, String lastName, String email,
-				String phone, String address, String state, String country, String zip, Date lastLogin) {
+	public User(Long id, String userName, String password, String userType, String userRole,
+				String firstName, String lastName, String email, String phone,
+				String address, String state, String country, String zip, Date lastLogin) {
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
+		this.userType = userType;
+		this.userRole = userRole;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -101,6 +113,22 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	public String getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
 
 	public String getFirstName() {
@@ -181,6 +209,8 @@ public class User {
 				"id=" + id +
 				", userName='" + userName + '\'' +
 				", password='" + password + '\'' +
+				", userType='" + userType + '\'' +
+				", userRole='" + userRole + '\'' +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
 				", email='" + email + '\'' +
@@ -203,6 +233,8 @@ public class User {
 		return Objects.equals(this.id, user.id)
 				&& Objects.equals(this.userName, user.userName)
 				&& Objects.equals(this.password, user.password)
+				&& Objects.equals(this.userType, user.userType)
+				&& Objects.equals(this.userRole, user.userRole)
 				&& Objects.equals(this.firstName, user.firstName)
 				&& Objects.equals(this.lastName, user.lastName)
 				&& Objects.equals(this.email, user.email)

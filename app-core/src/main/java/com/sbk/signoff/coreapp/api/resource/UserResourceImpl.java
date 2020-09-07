@@ -2,26 +2,19 @@ package com.sbk.signoff.coreapp.api.resource;
 
 import com.sbk.signoff.coreapp.api.gateway.UserGateway;
 import com.sbk.signoff.coreapp.api.model.User;
+import com.sbk.signoff.coreapp.api.model.UserRole;
+import com.sbk.signoff.coreapp.api.model.UserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class UserResourceImpl implements UserResource {
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserResourceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserResourceImpl.class);
 
 	@Autowired
 	private UserGateway userGateway;
@@ -34,14 +27,14 @@ public class UserResourceImpl implements UserResource {
 
 	@Override
 	public List<User> readUsers() throws Exception {
-		LOGGER.info("Testing GET ALL users");
+		logger.info("Testing GET ALL users");
 		System.out.println("Testing GET all users");
 		return userGateway.readUsers();
 	}
 
 	@Override
 	public User addUser(User user) throws Exception {
-		LOGGER.info("Adding new user:" + user);
+		logger.info("Adding new user:" + user);
 		validateUser(user);
 		return userGateway.addUser(user);
 	}
@@ -76,6 +69,18 @@ public class UserResourceImpl implements UserResource {
 	private void validateUser(User user) throws Exception {
 		if(user == null) {
 			throw new Exception("Empty User object.  Retry the action.");
+		}
+		try {
+			UserType type = UserType.fromValue(user.getUserType());
+			logger.info("Valid userType value found.  userType:" + type.getValue());
+		} catch(Exception e) {
+			throw new Exception("Invalid input param User.userType.");
+		}
+		try {
+			UserRole role = UserRole.fromValue(user.getUserRole());
+			logger.info("Valid userRole value found.  userRole:" + role.getValue());
+		} catch(Exception e) {
+			throw new Exception("Invalid input param User.userRole.");
 		}
 	}
 

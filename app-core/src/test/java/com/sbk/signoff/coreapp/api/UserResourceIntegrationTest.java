@@ -128,8 +128,9 @@ public class UserResourceIntegrationTest {
 		assertTrue(response.getStatusCode() == HttpStatus.OK);
 
 		//Get a user
+		Long userId = response.getBody().getId();
 		String newPassword = "ZingZing";
-		ResponseEntity<User> response2 = restTemplate.exchange(baseURL + "/1" + "/password/" + newPassword,
+		ResponseEntity<User> response2 = restTemplate.exchange(baseURL + "/" + userId + "/password/" + newPassword,
 				HttpMethod.PUT,
 				new HttpEntity<Object>(user1, headers), User.class);
 		logger.info("Result2:" + response2);
@@ -164,6 +165,8 @@ public class UserResourceIntegrationTest {
 		return new User(1L,
 				"primeUser",
 				"testPassword",
+				"OTHER",
+				"USER",
 				"Primary",
 				"User",
 				"prime@user.com",

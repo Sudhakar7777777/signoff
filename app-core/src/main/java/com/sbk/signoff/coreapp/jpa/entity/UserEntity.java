@@ -1,6 +1,7 @@
 package com.sbk.signoff.coreapp.jpa.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sbk.signoff.coreapp.api.model.UserType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +32,12 @@ public class UserEntity extends BaseEntity {
 
 	@Column(name = "PASSWD", nullable = false, length = 20)
 	private String password;
+
+	@Column(name = "TYPE", nullable = false, length = 10)
+	private String userType;
+
+	@Column(name = "ROLE", nullable = false, length = 10)
+	private String userRole;
 
 	@Column(name = "FIRST_NM", nullable = false, length = 30)
 	private String firstName;
@@ -63,13 +70,16 @@ public class UserEntity extends BaseEntity {
 		super();
 	}
 
-	public UserEntity(Long id, String userName, String password, String firstName, String lastName,
+	public UserEntity(Long id, String userName, String password, String usertype, String userRole,
+					  String firstName, String lastName,
 					  String email, String phone, String address, String state, String country,
 					  String zip, Date lastLogin) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
+		this.userType = usertype;
+		this.userRole = userRole;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -115,6 +125,22 @@ public class UserEntity extends BaseEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	public String getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
 
 	public String getFirstName() {
