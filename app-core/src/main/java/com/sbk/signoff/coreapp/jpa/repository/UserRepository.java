@@ -1,6 +1,6 @@
 package com.sbk.signoff.coreapp.jpa.repository;
 
-import com.sbk.signoff.coreapp.jpa.model.UserEntity;
+import com.sbk.signoff.coreapp.jpa.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

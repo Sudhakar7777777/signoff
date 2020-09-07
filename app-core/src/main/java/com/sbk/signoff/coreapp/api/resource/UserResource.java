@@ -11,30 +11,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping(
-		consumes = "{\"application/json\"}",
-		produces = "{\"application/json\"}")
+		value = "/users",
+		consumes = "application/json",
+		produces = "application/json; charset=UTF-8")
 public interface UserResource {
 
-	@GetMapping("/users/{id}")
+	@GetMapping("/{id}")
 	User readUser(@PathVariable Long id) throws Exception;
 
-	@GetMapping("/users")
+	@GetMapping("/")
 	List<User> readUsers() throws Exception;
 
-	@PostMapping("/users")
+	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
 	User addUser(@RequestParam("user") @Valid @RequestBody User user) throws Exception;
 
-	@PutMapping("/users")
+	@PutMapping("/")
 	User updateUser(@Valid @RequestBody User user) throws Exception;
 
-	@DeleteMapping("/users/{id}")
+	@DeleteMapping("/{id}")
 	Boolean deleteUser(@PathVariable Long id) throws Exception;
 
 }

@@ -1,4 +1,4 @@
-package com.sbk.signoff.coreapp.init.security;
+package com.sbk.signoff.coreapp.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -42,9 +42,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.authorizeRequests()
-				.antMatchers("/h2-console/**").permitAll()
-				.antMatchers("/users/**").permitAll()
+		httpSecurity
+				.authorizeRequests()
+					.antMatchers("/h2-console/**").permitAll()
+					.antMatchers("/users/**").permitAll()
+					.antMatchers("/test/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin().permitAll();
@@ -52,10 +54,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/")
 				.invalidateHttpSession(true);
-		httpSecurity.csrf()
+		httpSecurity
+				.csrf()
 				.ignoringAntMatchers("/h2-console/**");
 		httpSecurity.headers()
 				.frameOptions()
 				.sameOrigin();
 	}
+
+//	@Override
+//	public void configure(WebSecurity web) throws Exception {
+//		web.ignoring().antMatchers(
+//				"/resources/**", "/static/**", "/css/**", "/js/**", "/images/**",
+//				"/resources/static/**", "/css/**", "/js/**", "/img/**", "/fonts/**",
+//				"/images/**", "/scss/**", "/vendor/**", "/favicon.ico", "/auth/**", "/favicon.png",
+//				"/v2/api-docs", "/configuration/ui", "/configuration/security", "/swagger-ui.html",
+//				"/webjars/**", "/swagger-resources/**", "/swagge‌​r-ui.html", "/actuator",
+//				"/actuator/**");
+//	}
+
 }

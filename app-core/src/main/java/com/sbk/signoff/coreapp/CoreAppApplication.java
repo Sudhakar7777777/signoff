@@ -1,4 +1,4 @@
-package com.sbk.signoff.coreapp.init;
+package com.sbk.signoff.coreapp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

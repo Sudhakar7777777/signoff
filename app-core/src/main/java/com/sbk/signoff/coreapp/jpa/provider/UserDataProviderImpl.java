@@ -1,7 +1,7 @@
 package com.sbk.signoff.coreapp.jpa.provider;
 
 import com.sbk.signoff.coreapp.api.model.User;
-import com.sbk.signoff.coreapp.jpa.model.UserEntity;
+import com.sbk.signoff.coreapp.jpa.entity.UserEntity;
 import com.sbk.signoff.coreapp.jpa.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

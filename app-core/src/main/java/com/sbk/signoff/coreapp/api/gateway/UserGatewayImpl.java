@@ -2,7 +2,6 @@ package com.sbk.signoff.coreapp.api.gateway;
 
 import com.sbk.signoff.coreapp.api.model.User;
 import com.sbk.signoff.coreapp.api.service.UserService;
-import com.sbk.signoff.coreapp.api.service.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

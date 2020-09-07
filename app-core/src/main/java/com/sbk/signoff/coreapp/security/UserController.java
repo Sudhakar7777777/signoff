@@ -1,4 +1,4 @@
-package com.sbk.signoff.coreapp.init.security;
+package com.sbk.signoff.coreapp.security;
 
 import java.security.Principal;
 

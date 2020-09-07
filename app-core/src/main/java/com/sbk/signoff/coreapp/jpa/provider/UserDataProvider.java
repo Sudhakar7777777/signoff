@@ -11,13 +11,13 @@ public interface UserDataProvider {
 
 	List<User> readUsers() throws Exception;
 
-	@Transactional
+//	@Transactional
 	User createUser(User user) throws Exception;
 
-	@Transactional
+//	@Transactional
 	User updateUser(User user) throws Exception;
 
-	@Transactional
+//	@Transactional
 	Boolean deleteUser(Long id) throws Exception;
 
 }

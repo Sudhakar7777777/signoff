@@ -1,4 +1,4 @@
-package com.sbk.signoff.coreapp.init;
+package com.sbk.signoff.coreapp;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;

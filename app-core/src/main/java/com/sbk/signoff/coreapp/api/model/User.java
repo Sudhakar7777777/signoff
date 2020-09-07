@@ -1,13 +1,17 @@
 package com.sbk.signoff.coreapp.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
 import java.util.Objects;
 
 import static com.sbk.signoff.coreapp.common.Constant.MSG_EMPTY;
 import static com.sbk.signoff.coreapp.common.Constant.MSG_SIZE_1_30;
 
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
 	private Long id;

@@ -1,4 +1,4 @@
-package com.sbk.signoff.coreapp.jpa.model;
+package com.sbk.signoff.coreapp.jpa.entity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
