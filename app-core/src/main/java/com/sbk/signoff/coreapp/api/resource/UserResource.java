@@ -17,7 +17,7 @@ import java.util.List;
 
 @RequestMapping(
 		value = "/users",
-		consumes = "application/json",
+		consumes = "application/json; charset=UTF-8",
 		produces = "application/json; charset=UTF-8")
 public interface UserResource {
 

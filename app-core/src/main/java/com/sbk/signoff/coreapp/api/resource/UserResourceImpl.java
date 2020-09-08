@@ -15,9 +15,12 @@ import java.util.List;
 @RestController
 public class UserResourceImpl implements UserResource {
 	private static final Logger logger = LoggerFactory.getLogger(UserResourceImpl.class);
+	private UserGateway userGateway;
 
 	@Autowired
-	private UserGateway userGateway;
+	public void setUserGateway(UserGateway userGateway) {
+		this.userGateway = userGateway;
+	}
 
 	@Override
 	public User readUser(Long id) throws Exception {

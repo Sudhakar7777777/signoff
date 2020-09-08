@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity
 				.authorizeRequests()
 					.antMatchers("/h2-console/**").permitAll()
+					.antMatchers("/cases/**").permitAll()
 					.antMatchers("/users/**").permitAll()
 					.antMatchers("/test/**").permitAll()
 				.anyRequest().authenticated()
@@ -57,6 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity
 				.csrf()
 				.ignoringAntMatchers("/h2-console/**")
+				.ignoringAntMatchers("/cases/**")
 				.ignoringAntMatchers("/users/**");
 		httpSecurity.headers()
 				.frameOptions()

@@ -19,7 +19,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-public class BasicConfigurationIntegrationTest {
+public class BasicConfigurationIT {
 //	private static final Logger logger = LoggerFactory.getLogger(BasicConfigurationIntegrationTest.class);
 
 	@LocalServerPort

@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Component
 public class UserDataProviderImpl implements UserDataProvider {
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserDataProvider.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserDataProvider.class);
 
 	private UserRepository userRepository;
 	private UserDataMapper userDataMapper;
@@ -30,7 +30,7 @@ public class UserDataProviderImpl implements UserDataProvider {
 
 	@Override
 	public User readUser(Long id) throws Exception {
-		LOGGER.info("Select user by id :" + id);
+		logger.info("Select user by id :" + id);
 		Optional<UserEntity> entity = userRepository.findById(id);
 		if(entity.isEmpty()) {
 			throw new RuntimeException("User record not found in database.");
@@ -40,18 +40,18 @@ public class UserDataProviderImpl implements UserDataProvider {
 
 	@Override
 	public List<User> readUsers() throws Exception {
-		LOGGER.info("Select all users...");
+		logger.info("Select all users...");
 		return userDataMapper.mapEntityToModel(userRepository.findAll());
 	}
 
 	@Override
 	public User createNewUser(User user) throws Exception {
-		LOGGER.info("Creating new user : " + user);
+		logger.info("Creating new user : " + user);
 		UserEntity userEntity = userDataMapper.mapModelToEntity(user);
-		LOGGER.info("New data : " + userEntity);
+		logger.info("New data : " + userEntity);
 		UserEntity entity = userRepository.save(userEntity);
 		if(entity.getId() < 1) {
-			LOGGER.error("User record creation failed, User:" + entity);
+			logger.error("User record creation failed, User:" + entity);
 			throw new RuntimeException("User creation failed for user id:" + user.getId());
 		}
 		return userDataMapper.mapEntityToModel(entity);
@@ -59,21 +59,21 @@ public class UserDataProviderImpl implements UserDataProvider {
 
 	@Override
 	public User updateExistingUser(Long id, User user) throws Exception {
-		LOGGER.info("Updating existing user : " + id);
+		logger.info("Updating existing user : " + id);
 		Optional<UserEntity> entity = userRepository.findById(id);
 		if(entity.isEmpty()) {
-			LOGGER.error("User record does not exist, UserID:" + id);
+			logger.error("User record does not exist, UserID:" + id);
 			throw new RuntimeException("User update failed.  ID does not pre-exist:" + id);
 		}
 
-		LOGGER.info("Existing record:" + entity.get());
-		LOGGER.info("New incoming data:" + user);
+		logger.info("Existing record:" + entity.get());
+		logger.info("New incoming data:" + user);
 		UserEntity entity1 = userDataMapper.mapUpdateEntity(entity.get(), user);
-		LOGGER.info("Modified data:" + entity1);
+		logger.info("Modified data:" + entity1);
 		UserEntity entity2 = userRepository.save(entity1);
-		LOGGER.info("Updated record:" + entity2);
+		logger.info("Updated record:" + entity2);
 		if(entity2.getId() < 1) {
-			LOGGER.error("User update failed, User:" + entity2);
+			logger.error("User update failed, User:" + entity2);
 			throw new RuntimeException("User update failed for user id:" + user.getId());
 		}
 		return userDataMapper.mapEntityToModel(entity2);
@@ -81,24 +81,24 @@ public class UserDataProviderImpl implements UserDataProvider {
 
 	@Override
 	public User updatePassword(Long id, String password) throws Exception {
-		LOGGER.info("Updating existing user : " + id);
+		logger.info("Updating existing user : " + id);
 		Optional<UserEntity> entity = userRepository.findById(id);
 		if(entity.isEmpty()) {
-			LOGGER.error("User record does not exist, UserID:" + id);
+			logger.error("User record does not exist, UserID:" + id);
 			throw new RuntimeException("User update failed.  ID does not pre-exist:" + id);
 		}
 
 		UserEntity currentEntity = entity.get();
 		if(currentEntity.getPassword().equals(password)) {
-			LOGGER.error("User password same is old password, OldPass:" + currentEntity.getPassword() + "NewPass:" + password);
+			logger.error("User password same is old password, OldPass:" + currentEntity.getPassword() + "NewPass:" + password);
 			throw new RuntimeException("User password same is old password.");
 		}
 
 		currentEntity.setPassword(password);
 		UserEntity newEntity = userRepository.save(currentEntity);
-		LOGGER.info("Updated record:" + newEntity);
+		logger.info("Updated record:" + newEntity);
 		if(newEntity.getId() < 1) {
-			LOGGER.error("User update failed, User:" + newEntity);
+			logger.error("User update failed, User:" + newEntity);
 			throw new RuntimeException("User update failed for user id:" + id);
 		}
 		return userDataMapper.mapEntityToModel(newEntity);
@@ -106,7 +106,7 @@ public class UserDataProviderImpl implements UserDataProvider {
 
 	@Override
 	public Boolean deleteUser(Long id) throws Exception {
-		LOGGER.info("Delete user by ID:" + id);
+		logger.info("Delete user by ID:" + id);
 		userRepository.deleteById(id);
 
 		boolean foundId = userRepository.existsById(id);

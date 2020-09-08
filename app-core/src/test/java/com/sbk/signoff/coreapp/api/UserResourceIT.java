@@ -1,6 +1,8 @@
 package com.sbk.signoff.coreapp.api;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sbk.signoff.coreapp.CoreAppApplication;
 import com.sbk.signoff.coreapp.api.model.User;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -32,8 +35,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CoreAppApplication.class, webEnvironment = RANDOM_PORT)
-public class UserResourceIntegrationTest {
-	private static final Logger logger = LoggerFactory.getLogger(UserResourceIntegrationTest.class);
+public class UserResourceIT {
+	private static final Logger logger = LoggerFactory.getLogger(UserResourceIT.class);
 	private TestRestTemplate restTemplate;
 	private HttpHeaders headers;
 
@@ -82,18 +85,19 @@ public class UserResourceIntegrationTest {
 		logger.info("Result:" + response);
 
 		//Get a All users
-		ResponseEntity<List> response3 = restTemplate.exchange(baseURL, HttpMethod.GET,
-				new HttpEntity<Object>(headers), List.class);
+		ResponseEntity<List<User>> response3 = restTemplate.exchange(baseURL,
+				HttpMethod.GET, new HttpEntity<Object>(headers),
+				new ParameterizedTypeReference<List<User>>(){});
 		logger.info("Result3:" + response3);
 		assertTrue(response3.getStatusCode() == HttpStatus.OK);
 		assertTrue(response3.getBody().size() > 0);
 
-//		//Get a user
-//		ResponseEntity<User> response2 = restTemplate.exchange(baseURL + "/1", HttpMethod.GET,
-//				new HttpEntity<Object>(headers), User.class);
-//		logger.info("Result2:" + response2);
-//		assertTrue(response2.getStatusCode() == HttpStatus.OK);
-//		assertTrue(response2.getBody().getUserName().equals(user1.getUserName()));
+		//Get a user
+		ResponseEntity<User> response2 = restTemplate.exchange(baseURL + "/" + response3.getBody().get(0).getId(),
+				HttpMethod.GET, new HttpEntity<Object>(headers), User.class);
+		logger.info("Result2:" + response2);
+		assertTrue(response2.getStatusCode() == HttpStatus.OK);
+		assertTrue(response2.getBody().getUserName().equals(user1.getUserName()));
 	}
 
 	@Test
@@ -159,6 +163,13 @@ public class UserResourceIntegrationTest {
 
 	private String getJsonStrFromUser(User user) throws JsonProcessingException {
 		return new ObjectMapper().writeValueAsString(user);
+	}
+
+	private List<User> getListObjectFromJsonArray(String jsonArray) throws JsonProcessingException {
+		String newString = jsonArray.replace('=',':');
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+		return mapper.readValue(newString, new TypeReference<List<User>>(){});
 	}
 
 	private User buildUser() {

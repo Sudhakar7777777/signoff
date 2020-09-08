@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import java.util.Objects;
+
 import static com.sbk.signoff.coreapp.common.Constant.MSG_EMPTY;
 import static com.sbk.signoff.coreapp.common.Constant.MSG_SIZE_1_30;
 
@@ -20,7 +22,7 @@ public class Case {
 	@Size(min = 1, max = 30, message = MSG_SIZE_1_30)
 	private String name;
 
-	@JsonIgnore
+//	@JsonIgnore
 	private String isActive;
 
 	public Case() {
@@ -75,4 +77,23 @@ public class Case {
 				'}';
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if(this == o) {
+			return true;
+		}
+		if(o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Case aCase = (Case) o;
+		return Objects.equals(id, aCase.id) &&
+				Objects.equals(sid, aCase.sid) &&
+				Objects.equals(name, aCase.name) &&
+				Objects.equals(isActive, aCase.isActive);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, sid, name, isActive);
+	}
 }
